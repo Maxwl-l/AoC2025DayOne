@@ -16,20 +16,8 @@ namespace AoCdayone
             string filePath = @"C:\MaxwellBilango\CSharpCode\AoC2025\DayonePI.txt";
             List<char> letter = new List<char>();
 
-            using (var reader = new StreamReader(filePath))
-            {
-                while (!reader.EndOfStream)
-                {
-                    int ch = reader.Read();
-                    Console.Write((char)ch);
-                    string begin = (ch).SubString(0, 1);
-                    
-                    
-                    
-                }
-                Console.Write(letter[0]);
-                Console.Write(letter[1]);
-            }
+
+            Console.WriteLine("Reading the file line by line:");
         }
     }
 }
