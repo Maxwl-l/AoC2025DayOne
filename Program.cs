@@ -372,36 +372,34 @@ namespace AoCdayone
                 {
                     char direction = line[0];
                     int amount = int.Parse(line.Substring(1));
-                    int remainder;
-
-                    // Reduce rotation to within 0–99
-                    
-                    amount = amount % 100;
+                    starting %= 100;
 
                     if (direction == 'R')
                     {
-                        amount = amount % 100;
-                        remainder = starting + amount;
-                        starting = (starting + amount) % 100;
-                        zero += remainder / 100; // how many times you pass 100
+                        for (int i = 0; i < amount; i++)
+                        {
+                            starting = (starting + 1) % 100;
+                            if (starting == 0)
+                            {
+                                Console.WriteLine("ADDED");
+                                zero++;
+                            }
+                        }
+                        
                     }
-                    else if (direction == 'L')
+                    if (direction == 'L')
                     {
-                        amount = amount % 100;
-                        remainder = amount - starting; // how far back past 0
-                        starting = (starting - amount + 100) % 100;
-                        zero += (remainder + 99) / 100;    // rounds up for any negative overshoot
+                        for (int i = 0; i < amount; i++)
+                        {
+                            starting = (starting - 1 + 100) % 100;
+                            if (starting == 0)
+                            {
+                                Console.WriteLine("ADDED");
+                                zero++;
+                            }
+                        }
+                        
                     }
-
-                    if (starting == 0) zero++;
-                    {
-                        zero++;
-                    }
-
-                    Console.WriteLine("-----------------");
-                    
-
-
                 }
 
                 sr.Close();
