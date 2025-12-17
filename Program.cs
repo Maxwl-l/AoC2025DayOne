@@ -355,12 +355,10 @@ namespace AoCdayone
             //    Console.WriteLine("Executing finally block.");
             //}
 
-
-
             string line;
             int starting = 50;
             int zero = 0;
-            int remainder;
+            int temp;
 
             try
             {
@@ -374,31 +372,36 @@ namespace AoCdayone
                 {
                     char direction = line[0];
                     int amount = int.Parse(line.Substring(1));
+                    int remainder;
 
                     // Reduce rotation to within 0–99
-                    amount %= 100;
+                    
+                    amount = amount % 100;
 
                     if (direction == 'R')
                     {
+                        amount = amount % 100;
+                        remainder = starting + amount;
                         starting = (starting + amount) % 100;
-                        remainder = (starting + amount);
-                        zero = zero + (remainder % 100);
+                        zero += remainder / 100; // how many times you pass 100
                     }
                     else if (direction == 'L')
                     {
+                        amount = amount % 100;
+                        remainder = amount - starting; // how far back past 0
                         starting = (starting - amount + 100) % 100;
-                        remainder = (starting - amount);
-                        zero = zero + (remainder % 100);
+                        zero += (remainder + 99) / 100;    // rounds up for any negative overshoot
                     }
 
-                    Console.WriteLine(starting);
-
-                    if (starting == 0)
+                    if (starting == 0) zero++;
                     {
                         zero++;
                     }
 
                     Console.WriteLine("-----------------");
+                    
+
+
                 }
 
                 sr.Close();
@@ -415,6 +418,7 @@ namespace AoCdayone
             {
                 Console.WriteLine("Executing finally block.");
             }
+
         }
     }
 }
